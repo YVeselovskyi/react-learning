@@ -48,8 +48,6 @@
 
 	__webpack_require__(1);
 
-	__webpack_require__(173);
-
 /***/ },
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
@@ -66,6 +64,14 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
+	var _WelcomeMessage = __webpack_require__(173);
+
+	var _WelcomeMessage2 = _interopRequireDefault(_WelcomeMessage);
+
+	var _WelcomeForm = __webpack_require__(174);
+
+	var _WelcomeForm2 = _interopRequireDefault(_WelcomeForm);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -74,118 +80,20 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var WelcomeMessage = function (_React$Component) {
-		_inherits(WelcomeMessage, _React$Component);
+	var WelcomeApp = function (_React$Component) {
+		_inherits(WelcomeApp, _React$Component);
 
-		function WelcomeMessage() {
-			_classCallCheck(this, WelcomeMessage);
+		function WelcomeApp(props) {
+			_classCallCheck(this, WelcomeApp);
 
-			return _possibleConstructorReturn(this, (WelcomeMessage.__proto__ || Object.getPrototypeOf(WelcomeMessage)).apply(this, arguments));
+			var _this = _possibleConstructorReturn(this, (WelcomeApp.__proto__ || Object.getPrototypeOf(WelcomeApp)).call(this, props));
+
+			_this.handleNewData = _this.handleNewData.bind(_this);
+			_this.state = { name: 'Stranger', message: 'Default Message' };
+			return _this;
 		}
 
-		_createClass(WelcomeMessage, [{
-			key: 'render',
-			value: function render() {
-				var name = this.props.name;
-				var message = this.props.message;
-				return _react2.default.createElement(
-					'div',
-					null,
-					_react2.default.createElement(
-						'h1',
-						null,
-						'Hello ',
-						name,
-						' '
-					),
-					_react2.default.createElement(
-						'h1',
-						null,
-						'Message: ',
-						message,
-						' '
-					)
-				);
-			}
-		}]);
-
-		return WelcomeMessage;
-	}(_react2.default.Component);
-
-	var WelcomeForm = function (_React$Component2) {
-		_inherits(WelcomeForm, _React$Component2);
-
-		function WelcomeForm(props) {
-			_classCallCheck(this, WelcomeForm);
-
-			var _this2 = _possibleConstructorReturn(this, (WelcomeForm.__proto__ || Object.getPrototypeOf(WelcomeForm)).call(this, props));
-
-			_this2.onFormSubmit = _this2.onFormSubmit.bind(_this2);
-			return _this2;
-		}
-
-		_createClass(WelcomeForm, [{
-			key: 'onFormSubmit',
-			value: function onFormSubmit(e) {
-				e.preventDefault();
-				var updates = {};
-				var name = this.refs.name.value;
-				var message = this.refs.message.value;
-
-				if (name.length > 0) {
-					this.refs.name.value = '';
-					updates.name = name;
-				}
-
-				if (message.length > 0) {
-					this.refs.message.value = '';
-					updates.message = message;
-				}
-
-				this.props.onNewText(updates);
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-				return _react2.default.createElement(
-					'form',
-					{ onSubmit: this.onFormSubmit },
-					_react2.default.createElement(
-						'div',
-						null,
-						_react2.default.createElement('input', { placeholder: 'Enter your name', type: 'text', ref: 'name' })
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						_react2.default.createElement('textarea', { placeholder: 'Enter your message', ref: 'message' })
-					),
-					_react2.default.createElement(
-						'button',
-						null,
-						'Save'
-					)
-				);
-			}
-		}]);
-
-		return WelcomeForm;
-	}(_react2.default.Component);
-
-	var Welcome = function (_React$Component3) {
-		_inherits(Welcome, _React$Component3);
-
-		function Welcome(props) {
-			_classCallCheck(this, Welcome);
-
-			var _this3 = _possibleConstructorReturn(this, (Welcome.__proto__ || Object.getPrototypeOf(Welcome)).call(this, props));
-
-			_this3.handleNewData = _this3.handleNewData.bind(_this3);
-			_this3.state = { name: 'Stranger', message: 'Default Message' };
-			return _this3;
-		}
-
-		_createClass(Welcome, [{
+		_createClass(WelcomeApp, [{
 			key: 'handleNewData',
 			value: function handleNewData(updates) {
 				this.setState(updates);
@@ -198,16 +106,16 @@
 				return _react2.default.createElement(
 					'div',
 					null,
-					_react2.default.createElement(WelcomeMessage, { name: name, message: message }),
-					_react2.default.createElement(WelcomeForm, { onNewText: this.handleNewData })
+					_react2.default.createElement(_WelcomeMessage2.default, { name: name, message: message }),
+					_react2.default.createElement(_WelcomeForm2.default, { onNewText: this.handleNewData })
 				);
 			}
 		}]);
 
-		return Welcome;
+		return WelcomeApp;
 	}(_react2.default.Component);
 
-	_reactDom2.default.render(_react2.default.createElement(Welcome, null), document.getElementById('app'));
+	_reactDom2.default.render(_react2.default.createElement(WelcomeApp, null), document.getElementById('app'));
 
 /***/ },
 /* 2 */
@@ -21578,11 +21486,145 @@
 
 /***/ },
 /* 173 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	console.log('Hello from script');
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var WelcomeMessage = function (_React$Component) {
+		_inherits(WelcomeMessage, _React$Component);
+
+		function WelcomeMessage() {
+			_classCallCheck(this, WelcomeMessage);
+
+			return _possibleConstructorReturn(this, (WelcomeMessage.__proto__ || Object.getPrototypeOf(WelcomeMessage)).apply(this, arguments));
+		}
+
+		_createClass(WelcomeMessage, [{
+			key: 'render',
+			value: function render() {
+				var name = this.props.name;
+				var message = this.props.message;
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						'h1',
+						null,
+						'Hello ',
+						name,
+						' '
+					),
+					_react2.default.createElement(
+						'h1',
+						null,
+						'Message: ',
+						message,
+						' '
+					)
+				);
+			}
+		}]);
+
+		return WelcomeMessage;
+	}(_react2.default.Component);
+
+	module.exports = WelcomeMessage;
+
+/***/ },
+/* 174 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var WelcomeForm = function (_React$Component) {
+		_inherits(WelcomeForm, _React$Component);
+
+		function WelcomeForm(props) {
+			_classCallCheck(this, WelcomeForm);
+
+			var _this = _possibleConstructorReturn(this, (WelcomeForm.__proto__ || Object.getPrototypeOf(WelcomeForm)).call(this, props));
+
+			_this.onFormSubmit = _this.onFormSubmit.bind(_this);
+			return _this;
+		}
+
+		_createClass(WelcomeForm, [{
+			key: 'onFormSubmit',
+			value: function onFormSubmit(e) {
+				e.preventDefault();
+				var updates = {};
+				var name = this.refs.name.value;
+				var message = this.refs.message.value;
+
+				if (name.length > 0) {
+					this.refs.name.value = '';
+					updates.name = name;
+				}
+
+				if (message.length > 0) {
+					this.refs.message.value = '';
+					updates.message = message;
+				}
+
+				this.props.onNewText(updates);
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					'form',
+					{ onSubmit: this.onFormSubmit },
+					_react2.default.createElement(
+						'div',
+						null,
+						_react2.default.createElement('input', { placeholder: 'Enter your name', type: 'text', ref: 'name' })
+					),
+					_react2.default.createElement(
+						'div',
+						null,
+						_react2.default.createElement('textarea', { placeholder: 'Enter your message', ref: 'message' })
+					),
+					_react2.default.createElement(
+						'button',
+						null,
+						'Save'
+					)
+				);
+			}
+		}]);
+
+		return WelcomeForm;
+	}(_react2.default.Component);
+
+	module.exports = WelcomeForm;
 
 /***/ }
 /******/ ]);

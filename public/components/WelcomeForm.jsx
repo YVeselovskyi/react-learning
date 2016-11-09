@@ -1,18 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-
-class WelcomeMessage extends React.Component{
-	render(){
-		let name = this.props.name;
-		let message = this.props.message;
-		return(
-			<div>
-				<h1>Hello {name} </h1>
-				<h1>Message: {message} </h1>
-			</div>
-		)
-	}
-}
 
 class WelcomeForm extends React.Component{
 	constructor(props) {
@@ -52,28 +38,4 @@ class WelcomeForm extends React.Component{
 	}
 }
 
-class Welcome extends React.Component {
-	constructor(props) {
-		super(props);
-		this.handleNewData = this.handleNewData.bind(this);
-		this.state = {name: 'Stranger', message: 'Default Message' };
-	}
-	handleNewData(updates){
-		this.setState(updates);
-	}
-	render() {
-		let name = this.state.name;
-		let message = this.state.message;
-		return (
-			<div>
-				<WelcomeMessage name={name} message={message}/>
-				<WelcomeForm onNewText={this.handleNewData}/>
-			</div>
-			)
-	}
-}
-
-ReactDOM.render(
-		<Welcome/>,
-		document.getElementById('app')
-);
+module.exports = WelcomeForm;

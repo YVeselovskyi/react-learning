@@ -1,2 +1,1 @@
-import './index.jsx';
-import './script.jsx';
+import './App.jsx';
