@@ -4,33 +4,39 @@ import ReactDOM from 'react-dom';
 class Welcome extends React.Component {
 	constructor(props) {
 		super(props);
+		this.onButtonClick = this.onButtonClick.bind(this);
+		this.state = {name: 'Stranger' };
 	}
-	handleClick(){
-		console.log('Hello');
+	onButtonClick(e){
+		e.preventDefault();
+		let nameRef = this.refs.name;
+		let name = nameRef.value;
+		nameRef.value = '';
+		if(typeof name === 'string' && name.length>0){
+			this.setState({
+				name: name
+			})
+		} else {
+			this.setState({
+				name: 'Stranger'
+			})
+		}
 	}
 	render() {
+		let name = this.state.name;
 		return (
 			<div>
-			<h1 onClick={this.handleClick}>Hello, I am {this.props.name}</h1>
-			<h2>I am feeling {this.props.feeling} </h2>
-			</div>
-			)
-	}
-}
-
-class WelcomeList extends React.Component{
-	render(){
-		return(
-			<div>
-				<Welcome name="Alice" feeling="great"/>
+				<h1>Hello, {name} ! </h1>
+				<form onSubmit={this.onButtonClick}>
+					<input type="text" ref="name"/>
+					<button>Set Name</button>
+				</form>
 			</div>
 			)
 	}
 }
 
 ReactDOM.render(
-  <div>
-  <WelcomeList/>
-  </div>,
-  document.getElementById('app')
+		<Welcome/>,
+		document.getElementById('app')
 );

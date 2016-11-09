@@ -80,32 +80,53 @@
 		function Welcome(props) {
 			_classCallCheck(this, Welcome);
 
-			return _possibleConstructorReturn(this, (Welcome.__proto__ || Object.getPrototypeOf(Welcome)).call(this, props));
+			var _this = _possibleConstructorReturn(this, (Welcome.__proto__ || Object.getPrototypeOf(Welcome)).call(this, props));
+
+			_this.onButtonClick = _this.onButtonClick.bind(_this);
+			_this.state = { name: 'Stranger' };
+			return _this;
 		}
 
 		_createClass(Welcome, [{
-			key: 'handleClick',
-			value: function handleClick() {
-				console.log('Hello');
+			key: 'onButtonClick',
+			value: function onButtonClick(e) {
+				e.preventDefault();
+				var nameRef = this.refs.name;
+				var name = nameRef.value;
+				nameRef.value = '';
+				if (typeof name === 'string' && name.length > 0) {
+					this.setState({
+						name: name
+					});
+				} else {
+					this.setState({
+						name: 'Stranger'
+					});
+				}
 			}
 		}, {
 			key: 'render',
 			value: function render() {
+				var name = this.state.name;
 				return _react2.default.createElement(
 					'div',
 					null,
 					_react2.default.createElement(
 						'h1',
-						{ onClick: this.handleClick },
-						'Hello, I am ',
-						this.props.name
+						null,
+						'Hello, ',
+						name,
+						' ! '
 					),
 					_react2.default.createElement(
-						'h2',
-						null,
-						'I am feeling ',
-						this.props.feeling,
-						' '
+						'form',
+						{ onSubmit: this.onButtonClick },
+						_react2.default.createElement('input', { type: 'text', ref: 'name' }),
+						_react2.default.createElement(
+							'button',
+							null,
+							'Set Name'
+						)
 					)
 				);
 			}
@@ -114,34 +135,7 @@
 		return Welcome;
 	}(_react2.default.Component);
 
-	var WelcomeList = function (_React$Component2) {
-		_inherits(WelcomeList, _React$Component2);
-
-		function WelcomeList() {
-			_classCallCheck(this, WelcomeList);
-
-			return _possibleConstructorReturn(this, (WelcomeList.__proto__ || Object.getPrototypeOf(WelcomeList)).apply(this, arguments));
-		}
-
-		_createClass(WelcomeList, [{
-			key: 'render',
-			value: function render() {
-				return _react2.default.createElement(
-					'div',
-					null,
-					_react2.default.createElement(Welcome, { name: 'Alice', feeling: 'great' })
-				);
-			}
-		}]);
-
-		return WelcomeList;
-	}(_react2.default.Component);
-
-	_reactDom2.default.render(_react2.default.createElement(
-		'div',
-		null,
-		_react2.default.createElement(WelcomeList, null)
-	), document.getElementById('app'));
+	_reactDom2.default.render(_react2.default.createElement(Welcome, null), document.getElementById('app'));
 
 /***/ },
 /* 2 */
