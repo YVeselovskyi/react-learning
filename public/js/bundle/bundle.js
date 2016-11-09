@@ -128,12 +128,21 @@
 			key: 'onFormSubmit',
 			value: function onFormSubmit(e) {
 				e.preventDefault();
+				var updates = {};
 				var name = this.refs.name.value;
+				var message = this.refs.message.value;
 
 				if (name.length > 0) {
 					this.refs.name.value = '';
-					this.props.onNewName(name);
+					updates.name = name;
 				}
+
+				if (message.length > 0) {
+					this.refs.message.value = '';
+					updates.message = message;
+				}
+
+				this.props.onNewText(updates);
 			}
 		}, {
 			key: 'render',
@@ -141,11 +150,20 @@
 				return _react2.default.createElement(
 					'form',
 					{ onSubmit: this.onFormSubmit },
-					_react2.default.createElement('input', { type: 'text', ref: 'name' }),
+					_react2.default.createElement(
+						'div',
+						null,
+						_react2.default.createElement('input', { placeholder: 'Enter your name', type: 'text', ref: 'name' })
+					),
+					_react2.default.createElement(
+						'div',
+						null,
+						_react2.default.createElement('textarea', { placeholder: 'Enter your message', ref: 'message' })
+					),
 					_react2.default.createElement(
 						'button',
 						null,
-						'Set Name'
+						'Save'
 					)
 				);
 			}
@@ -162,38 +180,32 @@
 
 			var _this3 = _possibleConstructorReturn(this, (Welcome.__proto__ || Object.getPrototypeOf(Welcome)).call(this, props));
 
-			_this3.handleNewName = _this3.handleNewName.bind(_this3);
-			_this3.state = { name: 'Stranger' };
+			_this3.handleNewData = _this3.handleNewData.bind(_this3);
+			_this3.state = { name: 'Stranger', message: 'Default Message' };
 			return _this3;
 		}
 
 		_createClass(Welcome, [{
-			key: 'handleNewName',
-			value: function handleNewName(name) {
-				this.setState({
-					name: name
-				});
+			key: 'handleNewData',
+			value: function handleNewData(updates) {
+				this.setState(updates);
 			}
 		}, {
 			key: 'render',
 			value: function render() {
 				var name = this.state.name;
-				var message = this.props.message;
+				var message = this.state.message;
 				return _react2.default.createElement(
 					'div',
 					null,
 					_react2.default.createElement(WelcomeMessage, { name: name, message: message }),
-					_react2.default.createElement(WelcomeForm, { onNewName: this.handleNewName })
+					_react2.default.createElement(WelcomeForm, { onNewText: this.handleNewData })
 				);
 			}
 		}]);
 
 		return Welcome;
 	}(_react2.default.Component);
-
-	Welcome.defaultProps = {
-		message: 'This is default message!'
-	};
 
 	_reactDom2.default.render(_react2.default.createElement(Welcome, null), document.getElementById('app'));
 
