@@ -1,2 +1,2 @@
-# react-shop
-Electronics shop
+# react-learning
+
