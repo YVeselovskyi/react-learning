@@ -74,66 +74,126 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Welcome = function (_React$Component) {
-		_inherits(Welcome, _React$Component);
+	var WelcomeMessage = function (_React$Component) {
+		_inherits(WelcomeMessage, _React$Component);
 
-		function Welcome(props) {
-			_classCallCheck(this, Welcome);
+		function WelcomeMessage() {
+			_classCallCheck(this, WelcomeMessage);
 
-			var _this = _possibleConstructorReturn(this, (Welcome.__proto__ || Object.getPrototypeOf(Welcome)).call(this, props));
-
-			_this.onButtonClick = _this.onButtonClick.bind(_this);
-			_this.state = { name: 'Stranger' };
-			return _this;
+			return _possibleConstructorReturn(this, (WelcomeMessage.__proto__ || Object.getPrototypeOf(WelcomeMessage)).apply(this, arguments));
 		}
 
-		_createClass(Welcome, [{
-			key: 'onButtonClick',
-			value: function onButtonClick(e) {
-				e.preventDefault();
-				var nameRef = this.refs.name;
-				var name = nameRef.value;
-				nameRef.value = '';
-				if (typeof name === 'string' && name.length > 0) {
-					this.setState({
-						name: name
-					});
-				} else {
-					this.setState({
-						name: 'Stranger'
-					});
-				}
-			}
-		}, {
+		_createClass(WelcomeMessage, [{
 			key: 'render',
 			value: function render() {
-				var name = this.state.name;
+				var name = this.props.name;
+				var message = this.props.message;
 				return _react2.default.createElement(
 					'div',
 					null,
 					_react2.default.createElement(
 						'h1',
 						null,
-						'Hello, ',
+						'Hello ',
 						name,
-						' ! '
+						' '
 					),
 					_react2.default.createElement(
-						'form',
-						{ onSubmit: this.onButtonClick },
-						_react2.default.createElement('input', { type: 'text', ref: 'name' }),
-						_react2.default.createElement(
-							'button',
-							null,
-							'Set Name'
-						)
+						'h1',
+						null,
+						'Message: ',
+						message,
+						' '
 					)
+				);
+			}
+		}]);
+
+		return WelcomeMessage;
+	}(_react2.default.Component);
+
+	var WelcomeForm = function (_React$Component2) {
+		_inherits(WelcomeForm, _React$Component2);
+
+		function WelcomeForm(props) {
+			_classCallCheck(this, WelcomeForm);
+
+			var _this2 = _possibleConstructorReturn(this, (WelcomeForm.__proto__ || Object.getPrototypeOf(WelcomeForm)).call(this, props));
+
+			_this2.onFormSubmit = _this2.onFormSubmit.bind(_this2);
+			return _this2;
+		}
+
+		_createClass(WelcomeForm, [{
+			key: 'onFormSubmit',
+			value: function onFormSubmit(e) {
+				e.preventDefault();
+				var name = this.refs.name.value;
+
+				if (name.length > 0) {
+					this.refs.name.value = '';
+					this.props.onNewName(name);
+				}
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					'form',
+					{ onSubmit: this.onFormSubmit },
+					_react2.default.createElement('input', { type: 'text', ref: 'name' }),
+					_react2.default.createElement(
+						'button',
+						null,
+						'Set Name'
+					)
+				);
+			}
+		}]);
+
+		return WelcomeForm;
+	}(_react2.default.Component);
+
+	var Welcome = function (_React$Component3) {
+		_inherits(Welcome, _React$Component3);
+
+		function Welcome(props) {
+			_classCallCheck(this, Welcome);
+
+			var _this3 = _possibleConstructorReturn(this, (Welcome.__proto__ || Object.getPrototypeOf(Welcome)).call(this, props));
+
+			_this3.handleNewName = _this3.handleNewName.bind(_this3);
+			_this3.state = { name: 'Stranger' };
+			return _this3;
+		}
+
+		_createClass(Welcome, [{
+			key: 'handleNewName',
+			value: function handleNewName(name) {
+				this.setState({
+					name: name
+				});
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				var name = this.state.name;
+				var message = this.props.message;
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(WelcomeMessage, { name: name, message: message }),
+					_react2.default.createElement(WelcomeForm, { onNewName: this.handleNewName })
 				);
 			}
 		}]);
 
 		return Welcome;
 	}(_react2.default.Component);
+
+	Welcome.defaultProps = {
+		message: 'This is default message!'
+	};
 
 	_reactDom2.default.render(_react2.default.createElement(Welcome, null), document.getElementById('app'));
 
