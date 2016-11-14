@@ -5,3 +5,11 @@ body, html{
 input, textarea{
   display: block;
 }
+.form-group .deny{
+	border-color: #db4c3f;
+}
+
+.hidden{
+	display: none;
+}
+

@@ -1,30 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import WelcomeMessage from '../components/WelcomeMessage.jsx';
-import WelcomeForm from '../components/WelcomeForm.jsx';
+import LoginForm from '../components/LoginForm.jsx';
 
-class WelcomeApp extends React.Component {
+class App extends React.Component {
 	constructor(props) {
 		super(props);
-		this.handleNewData = this.handleNewData.bind(this);
-		this.state = {name: 'Stranger', message: 'Default Message' };
-	}
-	handleNewData(updates){
-		this.setState(updates);
 	}
 	render() {
-		let name = this.state.name;
-		let message = this.state.message;
 		return (
 			<div>
-				<WelcomeMessage name={name} message={message}/>
-				<WelcomeForm onNewText={this.handleNewData}/>
+				<LoginForm/>
 			</div>
 			)
 	}
 }
 
 ReactDOM.render(
-		<WelcomeApp/>,
+		<App/>,
 		document.getElementById('app')
 );

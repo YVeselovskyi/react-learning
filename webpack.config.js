@@ -3,7 +3,7 @@ const webpack = require('webpack');
 
 module.exports = {
     entry: './public/js/main.js',
-    output: { path: __dirname + '/public/js/bundle' , filename: 'bundle.js' },
+    output: { path: __dirname + '/public/js/bundle', filename: 'bundle.js' },
     module: {
         loaders: [{
             test: /.jsx?$/,
@@ -13,5 +13,5 @@ module.exports = {
                 presets: ['es2015', 'react']
             }
         }]
-    },
+    }
 };
