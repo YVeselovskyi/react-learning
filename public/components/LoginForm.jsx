@@ -5,7 +5,7 @@ class LoginForm extends React.Component{
 	constructor(props) {
 		super(props);
 		this.onFormSubmit = this.onFormSubmit.bind(this);
-		this.state = {data: {},  loginState: ''}
+		this.state = {data: {},  loginState: '' , successLogin: false};
 	}
 	onFormSubmit(e){
 		e.preventDefault();
@@ -20,7 +20,7 @@ class LoginForm extends React.Component{
   			.then(function (response) {
     			let authCheck = response.data['Auth'];
     			if(authCheck == 'Logged'){
-    				that.setState({loginState: 'success'})
+    				that.setState({loginState: 'success' , successLogin: true})
     			} else {
     				that.setState({loginState: 'deny'})
     			}
@@ -32,9 +32,11 @@ class LoginForm extends React.Component{
 
 	render(){
 		let loginClass = `form-control ${this.state.loginState}`;
+		const hiddenStyle  = {display: 'none'};
+		const blockStyle  = {display: 'block'};
 		return(
 			<div>
-			<form onSubmit={this.onFormSubmit} id="login-form">
+			<form onSubmit={this.onFormSubmit} id="login-form" style={this.state.successLogin ? hiddenStyle: blockStyle}>
 				<div>
 					<h2>Login</h2>
 				</div>
@@ -46,7 +48,7 @@ class LoginForm extends React.Component{
 				</div>
 				<button className="btn">Login</button>
 			</form>
-			<div className>Success!</div>
+			<div style={this.state.successLogin ? blockStyle:hiddenStyle}>Success!</div>
 			</div>
 		)
 	}

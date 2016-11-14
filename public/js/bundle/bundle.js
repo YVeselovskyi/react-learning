@@ -21501,7 +21501,7 @@
 			var _this = _possibleConstructorReturn(this, (LoginForm.__proto__ || Object.getPrototypeOf(LoginForm)).call(this, props));
 
 			_this.onFormSubmit = _this.onFormSubmit.bind(_this);
-			_this.state = { data: {}, loginState: '' };
+			_this.state = { data: {}, loginState: '', successLogin: false };
 			return _this;
 		}
 
@@ -21519,7 +21519,7 @@
 				_axios2.default.post('/login', data).then(function (response) {
 					var authCheck = response.data['Auth'];
 					if (authCheck == 'Logged') {
-						that.setState({ loginState: 'success' });
+						that.setState({ loginState: 'success', successLogin: true });
 					} else {
 						that.setState({ loginState: 'deny' });
 					}
@@ -21531,12 +21531,14 @@
 			key: 'render',
 			value: function render() {
 				var loginClass = 'form-control ' + this.state.loginState;
+				var hiddenStyle = { display: 'none' };
+				var blockStyle = { display: 'block' };
 				return _react2.default.createElement(
 					'div',
 					null,
 					_react2.default.createElement(
 						'form',
-						{ onSubmit: this.onFormSubmit, id: 'login-form' },
+						{ onSubmit: this.onFormSubmit, id: 'login-form', style: this.state.successLogin ? hiddenStyle : blockStyle },
 						_react2.default.createElement(
 							'div',
 							null,
@@ -21564,7 +21566,7 @@
 					),
 					_react2.default.createElement(
 						'div',
-						{ className: true },
+						{ style: this.state.successLogin ? blockStyle : hiddenStyle },
 						'Success!'
 					)
 				);
