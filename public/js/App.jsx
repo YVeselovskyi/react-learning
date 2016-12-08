@@ -1,21 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import LoginForm from '../components/LoginForm.jsx';
+import {Route, Router, IndexRoute, hashHistory} from 'react-router';
+import Main from 'Main';
 
-class App extends React.Component {
-	constructor(props) {
-		super(props);
-	}
-	render() {
-		return (
-			<div>
-				<LoginForm/>
-			</div>
-			)
-	}
-}
 
 ReactDOM.render(
-		<App/>,
-		document.getElementById('app')
+	<Router history={hashHistory}>
+		<Route path="/" component={Main}>
+
+		</Route>
+	</Router>,
+	document.getElementById('app')
 );
