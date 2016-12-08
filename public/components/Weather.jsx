@@ -1,4 +1,6 @@
 import React from 'react';
+import WeatherForm from 'WeatherForm';
+import WeatherMessage from 'WeatherMessage';
 
 class Weather extends React.Component {
     constructor(props) {
@@ -7,7 +9,9 @@ class Weather extends React.Component {
     render() {
         return (
             <div>
-                <h2>Weather lols</h2>
+                <h3>Weather Component</h3>
+                <WeatherForm/>
+                <WeatherMessage/>
             </div>
         );
     }
