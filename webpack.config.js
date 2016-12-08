@@ -8,7 +8,10 @@ module.exports = {
       root: __dirname,
         alias: {
           Main: 'public/components/Main.jsx',
-          Nav: 'public/components/Nav.jsx'
+          Nav: 'public/components/Nav.jsx',
+          Weather: 'public/components/Weather.jsx',
+          About: 'public/components/About.jsx',
+          Examples: 'public/components/Examples.jsx'
         },
         extensions: ['' , '.js' , 'jsx']
     },

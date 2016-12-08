@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router';
 
 class Nav extends React.Component {
     constructor(props) {
@@ -6,7 +7,11 @@ class Nav extends React.Component {
     }
     render() {
         return (
-            <div>Nav Lols</div>
+            <div>
+                <Link to="/"> Get Weather </Link>
+                <Link to="/about">About</Link>
+                <Link to="/examples">Examples</Link>
+            </div>
         );
     }
 }
