@@ -1,6 +1,7 @@
 import React from 'react';
 import WeatherForm from 'WeatherForm';
 import WeatherMessage from 'WeatherMessage';
+import WeatherApi from 'WeatherApi';
 
 class Weather extends React.Component {
     constructor(props) {
@@ -9,9 +10,14 @@ class Weather extends React.Component {
         this.handleSearch = this.handleSearch.bind(this);
     }
     handleSearch(location){
-        this.setState({
-            location: location,
-            temp: 23
+        let that = this;
+        WeatherApi.getTemperature(location).then(function (temp) {
+            that.setState({
+                location: location,
+                temp: temp
+            });
+        }, function (errorMessage) {
+            console.log(errorMessage)
         });
     }
     render() {
