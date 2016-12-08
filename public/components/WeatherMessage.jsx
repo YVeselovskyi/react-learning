@@ -5,9 +5,10 @@ class WeatherMessage extends React.Component {
         super(props);
     }
     render() {
+        let {location, temp} = this.props;
         return (
             <div>
-                <h2>It is lol in Kyiv</h2>
+                <h2>It is {temp} in {location}</h2>
             </div>
         );
     }

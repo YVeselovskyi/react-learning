@@ -26568,12 +26568,28 @@
 	    function Weather(props) {
 	        _classCallCheck(this, Weather);
 
-	        return _possibleConstructorReturn(this, (Weather.__proto__ || Object.getPrototypeOf(Weather)).call(this, props));
+	        var _this = _possibleConstructorReturn(this, (Weather.__proto__ || Object.getPrototypeOf(Weather)).call(this, props));
+
+	        _this.state = { location: 'Miami', temp: 88 };
+	        _this.handleSearch = _this.handleSearch.bind(_this);
+	        return _this;
 	    }
 
 	    _createClass(Weather, [{
+	        key: 'handleSearch',
+	        value: function handleSearch(location) {
+	            this.setState({
+	                location: location,
+	                temp: 23
+	            });
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
+	            var _state = this.state,
+	                location = _state.location,
+	                temp = _state.temp;
+
 	            return _react2.default.createElement(
 	                'div',
 	                null,
@@ -26582,8 +26598,8 @@
 	                    null,
 	                    'Weather Component'
 	                ),
-	                _react2.default.createElement(_WeatherForm2.default, null),
-	                _react2.default.createElement(_WeatherMessage2.default, null)
+	                _react2.default.createElement(_WeatherForm2.default, { onSearch: this.handleSearch }),
+	                _react2.default.createElement(_WeatherMessage2.default, { location: location, temp: temp })
 	            );
 	        }
 	    }]);
@@ -26597,7 +26613,7 @@
 /* 237 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -26623,23 +26639,37 @@
 	    function WeatherForm(props) {
 	        _classCallCheck(this, WeatherForm);
 
-	        return _possibleConstructorReturn(this, (WeatherForm.__proto__ || Object.getPrototypeOf(WeatherForm)).call(this, props));
+	        var _this = _possibleConstructorReturn(this, (WeatherForm.__proto__ || Object.getPrototypeOf(WeatherForm)).call(this, props));
+
+	        _this.onFormSubmit = _this.onFormSubmit.bind(_this);
+	        return _this;
 	    }
 
 	    _createClass(WeatherForm, [{
-	        key: "render",
+	        key: 'onFormSubmit',
+	        value: function onFormSubmit(e) {
+	            e.preventDefault();
+	            var location = this.refs.location.value;
+
+	            if (location.length > 0) {
+	                this.refs.location.value = '';
+	                this.props.onSearch(location);
+	            }
+	        }
+	    }, {
+	        key: 'render',
 	        value: function render() {
 	            return _react2.default.createElement(
-	                "div",
+	                'div',
 	                null,
 	                _react2.default.createElement(
-	                    "form",
-	                    null,
-	                    _react2.default.createElement("input", { type: "text" }),
+	                    'form',
+	                    { onSubmit: this.onFormSubmit },
+	                    _react2.default.createElement('input', { type: 'text', ref: 'location' }),
 	                    _react2.default.createElement(
-	                        "button",
-	                        { className: "btn-success" },
-	                        "Get Weather"
+	                        'button',
+	                        { className: 'btn-success' },
+	                        'Get Weather'
 	                    )
 	                )
 	            );
@@ -26687,13 +26717,20 @@
 	    _createClass(WeatherMessage, [{
 	        key: 'render',
 	        value: function render() {
+	            var _props = this.props,
+	                location = _props.location,
+	                temp = _props.temp;
+
 	            return _react2.default.createElement(
 	                'div',
 	                null,
 	                _react2.default.createElement(
 	                    'h2',
 	                    null,
-	                    'It is lol in Kyiv'
+	                    'It is ',
+	                    temp,
+	                    ' in ',
+	                    location
 	                )
 	            );
 	        }
