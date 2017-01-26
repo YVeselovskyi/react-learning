@@ -26451,11 +26451,14 @@
 	                null,
 	                _react2.default.createElement(_Nav2.default, null),
 	                _react2.default.createElement(
-	                    'h2',
-	                    null,
-	                    'Main Lols'
-	                ),
-	                this.props.children
+	                    'div',
+	                    { className: 'container' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'row' },
+	                        this.props.children
+	                    )
+	                )
 	            );
 	        }
 	    }]);
@@ -26497,29 +26500,101 @@
 	    function Nav(props) {
 	        _classCallCheck(this, Nav);
 
-	        return _possibleConstructorReturn(this, (Nav.__proto__ || Object.getPrototypeOf(Nav)).call(this, props));
+	        var _this = _possibleConstructorReturn(this, (Nav.__proto__ || Object.getPrototypeOf(Nav)).call(this, props));
+
+	        _this.state = { activeElement: 'first' };
+	        _this.onSearch = _this.onSearch.bind(_this);
+	        return _this;
 	    }
 
 	    _createClass(Nav, [{
+	        key: 'onSearch',
+	        value: function onSearch(e) {
+	            e.preventDefault();
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
 	            return _react2.default.createElement(
 	                'div',
 	                null,
 	                _react2.default.createElement(
-	                    _reactRouter.IndexLink,
-	                    { to: '/', activeClassName: 'active', activeStyle: { fontWeight: 'bold' } },
-	                    ' Get Weather '
-	                ),
-	                _react2.default.createElement(
-	                    _reactRouter.Link,
-	                    { to: '/about', activeClassName: 'active', activeStyle: { fontWeight: 'bold' } },
-	                    'About'
-	                ),
-	                _react2.default.createElement(
-	                    _reactRouter.Link,
-	                    { to: '/examples', activeClassName: 'active', activeStyle: { fontWeight: 'bold' } },
-	                    'Examples'
+	                    'nav',
+	                    { className: 'navbar navbar-default' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'container-fluid' },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'navbar-header' },
+	                            _react2.default.createElement(
+	                                'button',
+	                                { type: 'button', className: 'navbar-toggle collapsed', 'data-toggle': 'collapse', 'data-target': '#bs-example-navbar-collapse-1', 'aria-expanded': 'false' },
+	                                _react2.default.createElement(
+	                                    'span',
+	                                    { className: 'sr-only' },
+	                                    'Toggle navigation'
+	                                ),
+	                                _react2.default.createElement('span', { className: 'icon-bar' }),
+	                                _react2.default.createElement('span', { className: 'icon-bar' }),
+	                                _react2.default.createElement('span', { className: 'icon-bar' })
+	                            ),
+	                            _react2.default.createElement(
+	                                'a',
+	                                { className: 'navbar-brand', href: '#' },
+	                                'React Weather App'
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'collapse navbar-collapse', id: 'bs-example-navbar-collapse-1' },
+	                            _react2.default.createElement(
+	                                'ul',
+	                                { className: 'nav navbar-nav' },
+	                                _react2.default.createElement(
+	                                    'li',
+	                                    null,
+	                                    _react2.default.createElement(
+	                                        _reactRouter.IndexLink,
+	                                        { to: '/', activeClassName: 'active', activeStyle: { fontWeight: 'bold' } },
+	                                        ' Get Weather '
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    'li',
+	                                    null,
+	                                    _react2.default.createElement(
+	                                        _reactRouter.Link,
+	                                        { to: '/about', activeClassName: 'active', activeStyle: { fontWeight: 'bold' } },
+	                                        'About'
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    'li',
+	                                    null,
+	                                    _react2.default.createElement(
+	                                        _reactRouter.Link,
+	                                        { to: '/examples', activeClassName: 'active', activeStyle: { fontWeight: 'bold' } },
+	                                        'Examples'
+	                                    )
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'form',
+	                                { className: 'navbar-form navbar-right' },
+	                                _react2.default.createElement(
+	                                    'div',
+	                                    { className: 'form-group' },
+	                                    _react2.default.createElement('input', { type: 'text', className: 'form-control', placeholder: 'Search' })
+	                                ),
+	                                _react2.default.createElement(
+	                                    'button',
+	                                    { type: 'submit', className: 'btn btn-default' },
+	                                    'Get Weather!'
+	                                )
+	                            )
+	                        )
+	                    )
 	                )
 	            );
 	        }
@@ -26574,7 +26649,7 @@
 
 	        var _this = _possibleConstructorReturn(this, (Weather.__proto__ || Object.getPrototypeOf(Weather)).call(this, props));
 
-	        _this.state = { location: 'Miami', temp: 88 };
+	        _this.state = { isLoading: false };
 	        _this.handleSearch = _this.handleSearch.bind(_this);
 	        return _this;
 	    }
@@ -26583,22 +26658,41 @@
 	        key: 'handleSearch',
 	        value: function handleSearch(location) {
 	            var that = this;
+
+	            this.setState({
+	                isLoading: true
+	            });
+
 	            _WeatherApi2.default.getTemperature(location).then(function (temp) {
 	                that.setState({
 	                    location: location,
-	                    temp: temp
+	                    temp: temp,
+	                    isLoading: false
 	                });
 	            }, function (errorMessage) {
-	                console.log(errorMessage);
+	                alert(errorMessage);
 	            });
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
 	            var _state = this.state,
+	                isLoading = _state.isLoading,
 	                location = _state.location,
 	                temp = _state.temp;
 
+
+	            function renderMessage() {
+	                if (isLoading) {
+	                    return _react2.default.createElement(
+	                        'h3',
+	                        null,
+	                        'Fetching weather...'
+	                    );
+	                } else if (temp && location) {
+	                    return _react2.default.createElement(_WeatherMessage2.default, { location: location, temp: temp });
+	                }
+	            }
 	            return _react2.default.createElement(
 	                'div',
 	                null,
@@ -26608,7 +26702,7 @@
 	                    'Weather Component'
 	                ),
 	                _react2.default.createElement(_WeatherForm2.default, { onSearch: this.handleSearch }),
-	                _react2.default.createElement(_WeatherMessage2.default, { location: location, temp: temp })
+	                renderMessage()
 	            );
 	        }
 	    }]);
@@ -26769,14 +26863,10 @@
 	        var encodedLocation = encodeURIComponent(location);
 	        var requestURL = WEATHER_URL + '&q=' + encodedLocation;
 
-	        return _axios2.default.get(requestURL).then(function (res) {
-	            if (res.data.cod && res.data.message) {
-	                throw new Error(res.data.message);
-	            } else {
-	                return res.data.main.temp;
-	            }
-	        }, function (res) {
-	            throw new Error(res.data.message);
+	        return _axios2.default.get(requestURL).then(function (response) {
+	            return response.data.main.temp;
+	        }).catch(function (error) {
+	            throw new Error(error.response.data.message);
 	        });
 	    }
 	};
@@ -28339,6 +28429,8 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _reactRouter = __webpack_require__(179);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -28363,9 +28455,36 @@
 	                'div',
 	                null,
 	                _react2.default.createElement(
-	                    'h2',
+	                    'h1',
 	                    null,
 	                    'Examples lols'
+	                ),
+	                _react2.default.createElement(
+	                    'p',
+	                    null,
+	                    'Here are a few examples'
+	                ),
+	                _react2.default.createElement(
+	                    'ol',
+	                    null,
+	                    _react2.default.createElement(
+	                        'li',
+	                        null,
+	                        _react2.default.createElement(
+	                            _reactRouter.Link,
+	                            { to: '/?location=Kyiv' },
+	                            'Kyiv, UA'
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'li',
+	                        null,
+	                        _react2.default.createElement(
+	                            _reactRouter.Link,
+	                            { to: '/?location=Warsaw' },
+	                            'Warsaw, PL'
+	                        )
+	                    )
 	                )
 	            );
 	        }

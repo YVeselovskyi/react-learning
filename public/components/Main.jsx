@@ -1,5 +1,7 @@
 import React from 'react';
 import Nav from 'Nav';
+
+
 class Main extends React.Component {
     constructor(props) {
         super(props);
@@ -8,8 +10,11 @@ class Main extends React.Component {
         return (
             <div>
                 <Nav/>
-                <h2>Main Lols</h2>
-                {this.props.children}
+                <div className="container">
+                  <div className="row">
+                    {this.props.children}
+                  </div>
+                </div>
             </div>
         );
     }
