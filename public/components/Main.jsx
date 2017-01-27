@@ -11,9 +11,9 @@ class Main extends React.Component {
             <div>
                 <Nav/>
                 <div className="container">
-                  <div className="row">
+                    <div className="col-md-6 col-md-offset-3 center">
                     {this.props.children}
-                  </div>
+                    </div>
                 </div>
             </div>
         );

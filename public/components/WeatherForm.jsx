@@ -6,7 +6,6 @@ class WeatherForm extends React.Component {
         this.onFormSubmit = this.onFormSubmit.bind(this);
     }
     onFormSubmit(e){
-        e.preventDefault();
         let location = this.refs.location.value;
 
         if(location.length>0){
@@ -18,10 +17,12 @@ class WeatherForm extends React.Component {
     render() {
         return (
             <div>
-                <form onSubmit={this.onFormSubmit}>
-                    <input type="text" ref="location"/>
-                    <button className="btn-success">Get Weather</button>
-                </form>
+                <div className="input-group">
+                  <input ref="location" type="text" className="form-control" placeholder="Enter city..."/>
+                  <span className="input-group-btn">
+                  <button className="btn btn-default" type="button" onClick={this.onFormSubmit}>Go!</button>
+                  </span>
+                </div>
             </div>
         );
     }

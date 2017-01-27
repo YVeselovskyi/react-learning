@@ -13,7 +13,9 @@ class Weather extends React.Component {
         let that = this;
 
         this.setState({
-            isLoading: true
+            isLoading: true,
+            location: undefined,
+            temp: undefined
         });
 
         WeatherApi.getTemperature(location).then(function (temp) {
@@ -25,6 +27,14 @@ class Weather extends React.Component {
         }, function (errorMessage) {
             alert(errorMessage)
         });
+    }
+    componentDidMount(){
+      let location = this.props.location.query.location;
+
+      if(location && location.length > 0){
+          this.handleSearch(location);
+          window.location.hash = '#/';
+      }
     }
     render() {
         let {isLoading , location, temp} = this.state;
@@ -38,7 +48,7 @@ class Weather extends React.Component {
         }
         return (
             <div>
-                <h3>Weather Component</h3>
+                <h3>Find your weather</h3>
                 <WeatherForm onSearch={this.handleSearch}/>
                 {renderMessage()}
             </div>

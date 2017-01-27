@@ -26455,7 +26455,7 @@
 	                    { className: 'container' },
 	                    _react2.default.createElement(
 	                        'div',
-	                        { className: 'row' },
+	                        { className: 'col-md-6 col-md-offset-3 center' },
 	                        this.props.children
 	                    )
 	                )
@@ -26660,7 +26660,9 @@
 	            var that = this;
 
 	            this.setState({
-	                isLoading: true
+	                isLoading: true,
+	                location: undefined,
+	                temp: undefined
 	            });
 
 	            _WeatherApi2.default.getTemperature(location).then(function (temp) {
@@ -26672,6 +26674,16 @@
 	            }, function (errorMessage) {
 	                alert(errorMessage);
 	            });
+	        }
+	    }, {
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            var location = this.props.location.query.location;
+
+	            if (location && location.length > 0) {
+	                this.handleSearch(location);
+	                window.location.hash = '#/';
+	            }
 	        }
 	    }, {
 	        key: 'render',
@@ -26699,7 +26711,7 @@
 	                _react2.default.createElement(
 	                    'h3',
 	                    null,
-	                    'Weather Component'
+	                    'Find your weather'
 	                ),
 	                _react2.default.createElement(_WeatherForm2.default, { onSearch: this.handleSearch }),
 	                renderMessage()
@@ -26751,7 +26763,6 @@
 	    _createClass(WeatherForm, [{
 	        key: 'onFormSubmit',
 	        value: function onFormSubmit(e) {
-	            e.preventDefault();
 	            var location = this.refs.location.value;
 
 	            if (location.length > 0) {
@@ -26766,13 +26777,17 @@
 	                'div',
 	                null,
 	                _react2.default.createElement(
-	                    'form',
-	                    { onSubmit: this.onFormSubmit },
-	                    _react2.default.createElement('input', { type: 'text', ref: 'location' }),
+	                    'div',
+	                    { className: 'input-group' },
+	                    _react2.default.createElement('input', { ref: 'location', type: 'text', className: 'form-control', placeholder: 'Enter city...' }),
 	                    _react2.default.createElement(
-	                        'button',
-	                        { className: 'btn-success' },
-	                        'Get Weather'
+	                        'span',
+	                        { className: 'input-group-btn' },
+	                        _react2.default.createElement(
+	                            'button',
+	                            { className: 'btn btn-default', type: 'button', onClick: this.onFormSubmit },
+	                            'Go!'
+	                        )
 	                    )
 	                )
 	            );
@@ -26832,7 +26847,7 @@
 	                    null,
 	                    'It is ',
 	                    temp,
-	                    ' in ',
+	                    '\u2103 in ',
 	                    location
 	                )
 	            );
@@ -28498,7 +28513,7 @@
 	                _react2.default.createElement(
 	                    'h1',
 	                    null,
-	                    'Examples lols'
+	                    'Examples'
 	                ),
 	                _react2.default.createElement(
 	                    'p',

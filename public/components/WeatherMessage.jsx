@@ -8,7 +8,7 @@ class WeatherMessage extends React.Component {
         let {location, temp} = this.props;
         return (
             <div>
-                <h2>It is {temp} in {location}</h2>
+                <h2>It is {temp}&#x2103; in {location}</h2>
             </div>
         );
     }

@@ -8,7 +8,7 @@ class Examples extends React.Component {
     render() {
         return (
             <div>
-                <h1>Examples lols</h1>
+                <h1>Examples</h1>
                 <p>Here are a few examples</p>
                 <ol>
                   <li>
