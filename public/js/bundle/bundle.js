@@ -28364,7 +28364,7 @@
 /* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -28394,15 +28394,56 @@
 	    }
 
 	    _createClass(About, [{
-	        key: 'render',
+	        key: "render",
 	        value: function render() {
 	            return _react2.default.createElement(
-	                'div',
+	                "div",
 	                null,
 	                _react2.default.createElement(
-	                    'h2',
+	                    "h1",
 	                    null,
-	                    'About lols'
+	                    "About"
+	                ),
+	                _react2.default.createElement(
+	                    "p",
+	                    null,
+	                    "This is a weather application, which is built with React framework"
+	                ),
+	                _react2.default.createElement(
+	                    "p",
+	                    null,
+	                    "Here are some tools I used"
+	                ),
+	                _react2.default.createElement(
+	                    "ul",
+	                    null,
+	                    _react2.default.createElement(
+	                        "li",
+	                        null,
+	                        _react2.default.createElement(
+	                            "a",
+	                            { href: "https://facebook.github.io/react", target: "_blank" },
+	                            "React JS"
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        "li",
+	                        null,
+	                        _react2.default.createElement(
+	                            "a",
+	                            { href: "https://openweathermap.org", target: "_blank" },
+	                            "Open Weather Map"
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        "li",
+	                        null,
+	                        _react2.default.createElement(
+	                            "a",
+	                            { href: "https://nodejs.org", target: "_blank" },
+	                            "Node JS"
+	                        )
+	                    )
 	                )
 	            );
 	        }
