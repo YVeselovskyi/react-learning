@@ -4,13 +4,18 @@ import {Link, IndexLink} from 'react-router';
 class Nav extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {activeElement : 'first'};
+        this.state = {activeElement : 'first', forecast: ''};
         this.onSearch = this.onSearch.bind(this);
     }
     onSearch(e){
         e.preventDefault();
+        let location = this.refs.location.value;
+        this.setState({
+          forecast: location
+        })
     }
     render() {
+        let forecastLink = `/forecast?city=${this.state.forecast}`;
         return (
             <div>
                 <nav className="navbar navbar-default">
@@ -38,9 +43,9 @@ class Nav extends React.Component {
                             </ul>
                             <form className="navbar-form navbar-right">
                                 <div className="form-group">
-                                    <input type="text" className="form-control" placeholder="Search"/>
+                                    <input type="text" className="form-control" placeholder="Enter city..." ref="location" onChange={this.onSearch}/>
                                 </div>
-                                <button type="submit" className="btn btn-default">Get Weather!</button>
+                                <Link className="btn btn-default" to={forecastLink}>Get 5 days forecast!</Link>
                             </form>
                         </div>
                     </div>

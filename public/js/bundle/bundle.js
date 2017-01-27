@@ -80,6 +80,10 @@
 
 	var _Examples2 = _interopRequireDefault(_Examples);
 
+	var _Forecast = __webpack_require__(267);
+
+	var _Forecast2 = _interopRequireDefault(_Forecast);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	_reactDom2.default.render(_react2.default.createElement(
@@ -90,6 +94,7 @@
 			{ path: '/', component: _Main2.default },
 			_react2.default.createElement(_reactRouter.Route, { path: 'about', component: _About2.default }),
 			_react2.default.createElement(_reactRouter.Route, { path: 'examples', component: _Examples2.default }),
+			_react2.default.createElement(_reactRouter.Route, { path: 'forecast', component: _Forecast2.default }),
 			_react2.default.createElement(_reactRouter.IndexRoute, { component: _Weather2.default })
 		)
 	), document.getElementById('app'));
@@ -26502,7 +26507,7 @@
 
 	        var _this = _possibleConstructorReturn(this, (Nav.__proto__ || Object.getPrototypeOf(Nav)).call(this, props));
 
-	        _this.state = { activeElement: 'first' };
+	        _this.state = { activeElement: 'first', forecast: '' };
 	        _this.onSearch = _this.onSearch.bind(_this);
 	        return _this;
 	    }
@@ -26511,10 +26516,15 @@
 	        key: 'onSearch',
 	        value: function onSearch(e) {
 	            e.preventDefault();
+	            var location = this.refs.location.value;
+	            this.setState({
+	                forecast: location
+	            });
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
+	            var forecastLink = '/forecast?city=' + this.state.forecast;
 	            return _react2.default.createElement(
 	                'div',
 	                null,
@@ -26585,12 +26595,12 @@
 	                                _react2.default.createElement(
 	                                    'div',
 	                                    { className: 'form-group' },
-	                                    _react2.default.createElement('input', { type: 'text', className: 'form-control', placeholder: 'Search' })
+	                                    _react2.default.createElement('input', { type: 'text', className: 'form-control', placeholder: 'Enter city...', ref: 'location', onChange: this.onSearch })
 	                                ),
 	                                _react2.default.createElement(
-	                                    'button',
-	                                    { type: 'submit', className: 'btn btn-default' },
-	                                    'Get Weather!'
+	                                    _reactRouter.Link,
+	                                    { className: 'btn btn-default', to: forecastLink },
+	                                    'Get 5 days forecast!'
 	                                )
 	                            )
 	                        )
@@ -26711,7 +26721,7 @@
 	                _react2.default.createElement(
 	                    'h3',
 	                    null,
-	                    'Find your weather'
+	                    'Find your current weather'
 	                ),
 	                _react2.default.createElement(_WeatherForm2.default, { onSearch: this.handleSearch }),
 	                renderMessage()
@@ -26872,6 +26882,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var WEATHER_URL = 'http://api.openweathermap.org/data/2.5/weather?appid=af5d0b37e055aa231e2f5c3bdee73187&units=metric';
+	var FORECAST_URL = 'http://api.openweathermap.org/data/2.5/forecast?appid=af5d0b37e055aa231e2f5c3bdee73187&units=metric';
 
 	module.exports = {
 	    getTemperature: function getTemperature(location) {
@@ -26880,6 +26891,17 @@
 
 	        return _axios2.default.get(requestURL).then(function (response) {
 	            return response.data.main.temp;
+	        }).catch(function (error) {
+	            throw new Error(error.response.data.message);
+	        });
+	    },
+
+	    getForecast: function getForecast(location) {
+	        var encodedLocation = encodeURIComponent(location);
+	        var requestURL = FORECAST_URL + '&q=' + encodedLocation;
+
+	        return _axios2.default.get(requestURL).then(function (response) {
+	            return response.data.list[0].main.temp;
 	        }).catch(function (error) {
 	            throw new Error(error.response.data.message);
 	        });
@@ -28550,6 +28572,87 @@
 	}(_react2.default.Component);
 
 	exports.default = Examples;
+
+/***/ },
+/* 267 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(179);
+
+	var _WeatherApi = __webpack_require__(239);
+
+	var _WeatherApi2 = _interopRequireDefault(_WeatherApi);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Forecast = function (_React$Component) {
+	    _inherits(Forecast, _React$Component);
+
+	    function Forecast(props) {
+	        _classCallCheck(this, Forecast);
+
+	        var _this = _possibleConstructorReturn(this, (Forecast.__proto__ || Object.getPrototypeOf(Forecast)).call(this, props));
+
+	        _this.state = { weatherForecast: '' };
+	        return _this;
+	    }
+
+	    _createClass(Forecast, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            var that = this;
+	            var forecastCity = this.props.location.query.city;
+
+	            _WeatherApi2.default.getForecast(location).then(function (temp) {
+	                that.setState({
+	                    weatherForecast: temp
+	                });
+	            }, function (errorMessage) {
+	                console.log(errorMessage);
+	            });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(
+	                    'h1',
+	                    null,
+	                    this.state.weatherForecast
+	                ),
+	                _react2.default.createElement(
+	                    'p',
+	                    null,
+	                    'Here are a few examples'
+	                )
+	            );
+	        }
+	    }]);
+
+	    return Forecast;
+	}(_react2.default.Component);
+
+	exports.default = Forecast;
 
 /***/ }
 /******/ ]);
