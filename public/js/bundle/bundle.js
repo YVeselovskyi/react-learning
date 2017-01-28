@@ -26881,7 +26881,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var WEATHER_URL = 'http://api.openweathermap.org/data/2.5/weather?appid=af5d0b37e055aa231e2f5c3bdee73187&units=metric';
-	var FORECAST_URL = 'http://api.openweathermap.org/data/2.5/forecast?appid=af5d0b37e055aa231e2f5c3bdee73187&units=metric';
+	var FORECAST_URL = 'http://api.openweathermap.org/data/2.5/forecast/daily?appid=af5d0b37e055aa231e2f5c3bdee73187&units=metric&cnt=5';
 
 	module.exports = {
 	    getTemperature: function getTemperature(location) {
@@ -26900,7 +26900,16 @@
 	        var requestURL = FORECAST_URL + '&q=' + encodedLocation;
 
 	        return _axios2.default.get(requestURL).then(function (response) {
-	            return response.data.list[0].main.temp;
+	            var loadedData = response.data.list;
+	            var forecast = [];
+	            var dailyWeather = {};
+	            for (var i = 0; i < loadedData.length; i++) {
+	                dailyWeather.date = loadedData[i].dt;
+	                dailyWeather.nightTemperature = loadedData[i].temp.night;
+	                dailyWeather.dayTemperature = loadedData[i].temp.day;
+	                forecast.push(dailyWeather);
+	            }
+	            return forecast;
 	        }).catch(function (error) {
 	            throw new Error(error.response.data.message);
 	        });
@@ -28619,14 +28628,14 @@
 	    }
 
 	    _createClass(Forecast, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
+	        key: 'componentWillReceiveProps',
+	        value: function componentWillReceiveProps() {
 	            var that = this;
 	            var forecastCity = this.props.location.query.city;
 
-	            _WeatherApi2.default.getForecast(forecastCity).then(function (temp) {
+	            _WeatherApi2.default.getForecast(forecastCity).then(function (forecast) {
 	                that.setState({
-	                    weatherForecast: temp,
+	                    weatherForecast: forecast,
 	                    city: forecastCity
 	                });
 	            }, function (errorMessage) {
@@ -28639,7 +28648,7 @@
 	            return _react2.default.createElement(
 	                'div',
 	                null,
-	                _react2.default.createElement(_ForecastMessage2.default, { weatherData: this.state.weatherForecast, city: this.state.city })
+	                this.state.weatherForecast ? _react2.default.createElement(_ForecastMessage2.default, { city: this.state.city, weatherData: this.state.weatherForecast }) : 'Loading...'
 	            );
 	        }
 	    }]);
@@ -28685,21 +28694,22 @@
 	    _createClass(ForecastMessage, [{
 	        key: 'render',
 	        value: function render() {
-	            var _props = this.props,
-	                weatherData = _props.weatherData,
-	                city = _props.city;
-
+	            console.log(this.props.weatherData);
 	            return _react2.default.createElement(
 	                'div',
 	                null,
 	                _react2.default.createElement(
 	                    'h2',
 	                    null,
-	                    'It is ',
-	                    weatherData,
-	                    '\u2103 in ',
-	                    city
-	                )
+	                    this.props.city
+	                ),
+	                this.props.weatherData.map(function (e, i) {
+	                    return _react2.default.createElement(
+	                        'p',
+	                        { key: i },
+	                        e.date
+	                    );
+	                })
 	            );
 	        }
 	    }]);

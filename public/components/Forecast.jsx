@@ -8,23 +8,24 @@ class Forecast extends React.Component {
         super(props);
         this.state = {weatherForecast: ''};
     }
-    componentDidMount(){
+    componentWillReceiveProps(){
       let that = this;
       let forecastCity = this.props.location.query.city;
 
-      WeatherApi.getForecast(forecastCity).then(function (temp) {
+      WeatherApi.getForecast(forecastCity).then(function (forecast) {
           that.setState({
-              weatherForecast: temp,
+              weatherForecast: forecast,
               city: forecastCity
           });
       }, function (errorMessage) {
           console.log(errorMessage)
       });
+
     }
     render() {
         return (
             <div>
-                <ForecastMessage weatherData={this.state.weatherForecast} city={this.state.city}/>
+                { this.state.weatherForecast ? <ForecastMessage city={this.state.city} weatherData={this.state.weatherForecast}/> : 'Loading...'}
             </div>
         );
     }
