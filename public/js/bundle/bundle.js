@@ -26524,7 +26524,6 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var forecastLink = '/forecast?city=' + this.state.forecast;
 	            return _react2.default.createElement(
 	                'div',
 	                null,
@@ -26599,7 +26598,7 @@
 	                                ),
 	                                _react2.default.createElement(
 	                                    _reactRouter.Link,
-	                                    { className: 'btn btn-default', to: forecastLink },
+	                                    { className: 'btn btn-default', to: { pathname: 'forecast', query: { city: this.state.forecast } } },
 	                                    'Get 5 days forecast!'
 	                                )
 	                            )
@@ -28595,6 +28594,10 @@
 
 	var _WeatherApi2 = _interopRequireDefault(_WeatherApi);
 
+	var _ForecastMessage = __webpack_require__(268);
+
+	var _ForecastMessage2 = _interopRequireDefault(_ForecastMessage);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -28621,9 +28624,10 @@
 	            var that = this;
 	            var forecastCity = this.props.location.query.city;
 
-	            _WeatherApi2.default.getForecast(location).then(function (temp) {
+	            _WeatherApi2.default.getForecast(forecastCity).then(function (temp) {
 	                that.setState({
-	                    weatherForecast: temp
+	                    weatherForecast: temp,
+	                    city: forecastCity
 	                });
 	            }, function (errorMessage) {
 	                console.log(errorMessage);
@@ -28635,16 +28639,7 @@
 	            return _react2.default.createElement(
 	                'div',
 	                null,
-	                _react2.default.createElement(
-	                    'h1',
-	                    null,
-	                    this.state.weatherForecast
-	                ),
-	                _react2.default.createElement(
-	                    'p',
-	                    null,
-	                    'Here are a few examples'
-	                )
+	                _react2.default.createElement(_ForecastMessage2.default, { weatherData: this.state.weatherForecast, city: this.state.city })
 	            );
 	        }
 	    }]);
@@ -28653,6 +28648,66 @@
 	}(_react2.default.Component);
 
 	exports.default = Forecast;
+
+/***/ },
+/* 268 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ForecastMessage = function (_React$Component) {
+	    _inherits(ForecastMessage, _React$Component);
+
+	    function ForecastMessage(props) {
+	        _classCallCheck(this, ForecastMessage);
+
+	        return _possibleConstructorReturn(this, (ForecastMessage.__proto__ || Object.getPrototypeOf(ForecastMessage)).call(this, props));
+	    }
+
+	    _createClass(ForecastMessage, [{
+	        key: 'render',
+	        value: function render() {
+	            var _props = this.props,
+	                weatherData = _props.weatherData,
+	                city = _props.city;
+
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(
+	                    'h2',
+	                    null,
+	                    'It is ',
+	                    weatherData,
+	                    '\u2103 in ',
+	                    city
+	                )
+	            );
+	        }
+	    }]);
+
+	    return ForecastMessage;
+	}(_react2.default.Component);
+
+	exports.default = ForecastMessage;
 
 /***/ }
 /******/ ]);

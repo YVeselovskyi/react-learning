@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router';
 import WeatherApi from 'WeatherApi';
+import ForecastMessage from 'ForecastMessage';
 
 class Forecast extends React.Component {
     constructor(props) {
@@ -11,9 +12,10 @@ class Forecast extends React.Component {
       let that = this;
       let forecastCity = this.props.location.query.city;
 
-      WeatherApi.getForecast(location).then(function (temp) {
+      WeatherApi.getForecast(forecastCity).then(function (temp) {
           that.setState({
-              weatherForecast: temp
+              weatherForecast: temp,
+              city: forecastCity
           });
       }, function (errorMessage) {
           console.log(errorMessage)
@@ -22,8 +24,7 @@ class Forecast extends React.Component {
     render() {
         return (
             <div>
-                <h1>{this.state.weatherForecast}</h1>
-                <p>Here are a few examples</p>
+                <ForecastMessage weatherData={this.state.weatherForecast} city={this.state.city}/>
             </div>
         );
     }

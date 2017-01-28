@@ -15,7 +15,6 @@ class Nav extends React.Component {
         })
     }
     render() {
-        let forecastLink = `/forecast?city=${this.state.forecast}`;
         return (
             <div>
                 <nav className="navbar navbar-default">
@@ -45,7 +44,7 @@ class Nav extends React.Component {
                                 <div className="form-group">
                                     <input type="text" className="form-control" placeholder="Enter city..." ref="location" onChange={this.onSearch}/>
                                 </div>
-                                <Link className="btn btn-default" to={forecastLink}>Get 5 days forecast!</Link>
+                                <Link className="btn btn-default" to={{ pathname: 'forecast', query: { city: this.state.forecast } }} >Get 5 days forecast!</Link>
                             </form>
                         </div>
                     </div>
