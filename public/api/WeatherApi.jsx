@@ -24,10 +24,12 @@ module.exports = {
         return axios.get(requestURL)
             .then(function (response) {
                 let loadedData = response.data.list;
+                console.log(loadedData);
                 let forecast = [];
                 let dailyWeather = {};
                 for(let i=0; i<loadedData.length; i++){
                     dailyWeather.date = loadedData[i].dt;
+                    dailyWeather.detailedInfo = Object.assign({}, loadedData[i].weather[0] );
                     dailyWeather.nightTemperature = loadedData[i].temp.night;
                     dailyWeather.dayTemperature = loadedData[i].temp.day;
                     forecast.push(dailyWeather);

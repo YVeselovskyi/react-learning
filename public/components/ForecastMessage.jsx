@@ -5,7 +5,6 @@ class ForecastMessage extends React.Component {
         super(props);
     }
     render() {
-        console.log(this.props.weatherData);
         return (
             <div>
                 <h2>{this.props.city}</h2>

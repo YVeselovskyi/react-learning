@@ -26901,10 +26901,12 @@
 
 	        return _axios2.default.get(requestURL).then(function (response) {
 	            var loadedData = response.data.list;
+	            console.log(loadedData);
 	            var forecast = [];
 	            var dailyWeather = {};
 	            for (var i = 0; i < loadedData.length; i++) {
 	                dailyWeather.date = loadedData[i].dt;
+	                dailyWeather.detailedInfo = Object.assign({}, loadedData[i].weather[0]);
 	                dailyWeather.nightTemperature = loadedData[i].temp.night;
 	                dailyWeather.dayTemperature = loadedData[i].temp.day;
 	                forecast.push(dailyWeather);
@@ -28694,7 +28696,6 @@
 	    _createClass(ForecastMessage, [{
 	        key: 'render',
 	        value: function render() {
-	            console.log(this.props.weatherData);
 	            return _react2.default.createElement(
 	                'div',
 	                null,
