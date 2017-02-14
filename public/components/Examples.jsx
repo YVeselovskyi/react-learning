@@ -7,8 +7,8 @@ class Examples extends React.Component {
     }
     render() {
         return (
-            <div>
-                <h1>Examples</h1>
+            <div className="col-md-6 col-md-offset-3 center">
+            <h1>Examples</h1>
                 <p>Here are a few examples</p>
                 <ol>
                   <li>

@@ -42,3 +42,14 @@ ul, ol{
 .dropdown-open {
   background: #e7e7e7;
 }
+
+.weather-image{
+  width: 50%;
+}
+.forecast-info{
+  display: inline-block;
+  vertical-align: middle;
+}
+.forecast-wrap, .temperatures{
+  margin-top: 10px;
+}

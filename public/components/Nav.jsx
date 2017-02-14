@@ -12,7 +12,7 @@ class Nav extends React.Component {
         let location = this.refs.location.value;
         this.setState({
           forecast: location
-        })
+        });
     }
     render() {
         return (

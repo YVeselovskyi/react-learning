@@ -17,7 +17,7 @@ class WeatherForm extends React.Component {
     render() {
         return (
             <div>
-                <div className="input-group">
+            <div className="input-group">
                   <input ref="location" type="text" className="form-control" placeholder="Enter city..."/>
                   <span className="input-group-btn">
                   <button className="btn btn-default" type="button" onClick={this.onFormSubmit}>Go!</button>

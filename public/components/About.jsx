@@ -6,8 +6,8 @@ class About extends React.Component {
     }
     render() {
         return (
-            <div>
-                <h1>About</h1>
+            <div className="col-md-6 col-md-offset-3 center">
+            <h1>About</h1>
                 <p>This is a weather application, which is built with React framework</p>
                 <p>Here are some tools I used</p>
                 <ul>

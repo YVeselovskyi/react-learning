@@ -47,8 +47,8 @@ class Weather extends React.Component {
             }
         }
         return (
-            <div>
-                <h3>Find your current weather</h3>
+            <div className="col-md-6 col-md-offset-3 center">
+            <h3>Find your current weather</h3>
                 <WeatherForm onSearch={this.handleSearch}/>
                 {renderMessage()}
             </div>

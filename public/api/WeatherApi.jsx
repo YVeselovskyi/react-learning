@@ -1,7 +1,8 @@
 import axios from 'axios';
+import moment from 'moment';
 
 const WEATHER_URL = 'http://api.openweathermap.org/data/2.5/weather?appid=af5d0b37e055aa231e2f5c3bdee73187&units=metric';
-const FORECAST_URL = 'http://api.openweathermap.org/data/2.5/forecast/daily?appid=af5d0b37e055aa231e2f5c3bdee73187&units=metric&cnt=5';
+const FORECAST_URL = 'http://api.openweathermap.org/data/2.5/forecast/daily?appid=af5d0b37e055aa231e2f5c3bdee73187&units=metric&cnt=6';
 
 module.exports = {
     getTemperature: function(location){
@@ -10,6 +11,7 @@ module.exports = {
 
         return axios.get(requestURL)
             .then(function (response) {
+                console.log(response.data);
                 return response.data.main.temp;
             })
             .catch(function (error) {
@@ -26,9 +28,9 @@ module.exports = {
                 let loadedData = response.data.list;
                 console.log(loadedData);
                 let forecast = [];
-                let dailyWeather = {};
                 for(let i=0; i<loadedData.length; i++){
-                    dailyWeather.date = loadedData[i].dt;
+                    let dailyWeather = {};
+                    dailyWeather.date = moment(loadedData[i].dt*1000).format('LL');
                     dailyWeather.detailedInfo = Object.assign({}, loadedData[i].weather[0] );
                     dailyWeather.nightTemperature = loadedData[i].temp.night;
                     dailyWeather.dayTemperature = loadedData[i].temp.day;
